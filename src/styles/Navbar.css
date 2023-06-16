@@ -1,0 +1,55 @@
+.navbar {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    justify-content: space-between;
+  }
+  
+  .nav {
+    background-color: #ffcc00;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Vertically center the logo */
+  }
+  
+  .logo-container {
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+  
+  .navbar-links {
+    display: flex;
+    list-style-type: none;
+    padding: 0;
+    justify-content: center;
+    align-items: center; /* Vertically center the links */
+    flex-grow: 1;
+  }
+  
+  .nav-link {
+    background-color: #ff6600;
+    margin: 0 5px;
+    padding: 10px 20px; /* Increase the padding for bigger boxes */
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .nav-link.active {
+    background-color: #ff0404;
+  }
+  
+  .nav-link a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px; /* Increase the font size for bigger text */
+    font-weight: bold;
+  }
+  
+  .nav-link a:hover {
+    text-decoration: underline;
+  }
+  
