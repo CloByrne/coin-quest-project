@@ -7,19 +7,19 @@ function Home() {
   const navigate = useNavigate();
 
   const navigateToSavings = () => {
-    navigate('/savings');
+    navigate('/Savings');
   };
 
   const navigateToShopping = () => {
-    navigate('/shopping');
+    navigate('/Shopping');
   };
 
   const navigateToVideos = () => {
-    navigate('/videos');
+    navigate('/VideoPage');
   };
 
   return (
-    <div>
+    <div className="main-container">
       <div className="home-container">
         <div className="home-text">
           <h1>Welcome to Coin Quest</h1>

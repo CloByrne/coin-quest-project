@@ -4,7 +4,8 @@ import Navbar from './components/Navbar';
 import Home from './views/Home';
 import Savings from './views/Savings';
 import Shopping from './views/Shopping';
-import Learning from './views/Learning';
+import VideoPage from './views/VideoPage';
+import VideoList from './components/VideoList'; // Update import statement
 import Footer from './components/Footer';
 
 function App() {
@@ -20,8 +21,8 @@ function App() {
     case "/Shopping":
       component = <Shopping />;
       break;
-    case "/Learning":
-      component = <Learning />;
+    case "/VideoPage":
+      component = <VideoPage />;
       break;
     default:
       component = null;
@@ -35,7 +36,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/Savings" element={<Savings />} />
         <Route path="/Shopping" element={<Shopping />} />
-        <Route path="/Learning" element={<Learning />} />
+        <Route path="/VideoPage" element={<VideoPage videos={VideoList} />} /> {/* Pass VideoList as prop */}
       </Routes>
       <Footer />
     </Router>

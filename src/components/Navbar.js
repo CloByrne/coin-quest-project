@@ -15,7 +15,7 @@ export default function Navbar() {
         <CustomLink href="/">Home</CustomLink>
         <CustomLink href="/Savings">My Savings</CustomLink>
         <CustomLink href="/Shopping">Shopping</CustomLink>
-        <CustomLink href="/Learning">Videos</CustomLink>
+        <CustomLink href="/VideoPage">Videos</CustomLink>
       </ul>
     </nav>
   );
