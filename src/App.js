@@ -7,6 +7,8 @@ import Shopping from './views/Shopping';
 import VideoPage from './views/VideoPage';
 import VideoList from './components/VideoList'; // Update import statement
 import Footer from './components/Footer';
+import Login from './components/Login';
+import Register from './components/Register';
 
 function App() {
   // Define a variable to hold the component to render based on the current URL
@@ -37,6 +39,8 @@ function App() {
         <Route path="/Savings" element={<Savings />} />
         <Route path="/Shopping" element={<Shopping />} />
         <Route path="/VideoPage" element={<VideoPage videos={VideoList} />} /> {/* Pass VideoList as prop */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} /> 
       </Routes>
       <Footer />
     </Router>

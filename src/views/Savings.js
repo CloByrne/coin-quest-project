@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/Savings.css';
+import Login from '../components/Login';
 
 const Savings = () => {
   const [goal, setGoal] = useState('');
@@ -11,6 +12,7 @@ const Savings = () => {
   const [totalSaved, setTotalSaved] = useState(0);
   const [spendingAmount, setSpendingAmount] = useState(0);
   const [spendingDescription, setSpendingDescription] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     // Fetch the savings goal from the backend API
@@ -110,10 +112,19 @@ const Savings = () => {
     }
   };
 
+  const handleSave = () => {
+    if (isLoggedIn) {
+      // Perform save action
+      console.log('Saving data...');
+    } else {
+      // Prompt login or registration
+      console.log('Please login or register to save.');
+    }
+  };
+
   return (
     <div className="main-container">
       <h1>My Savings</h1>
-
       <div className="container">
         <div className="left-container">
           <h2>Savings Goal: €{goal}</h2>
@@ -125,80 +136,97 @@ const Savings = () => {
           ) : (
             <button onClick={handleGoalAction}>{goal ? 'Edit Goal' : 'Add Goal'}</button>
           )}
-        </div>
-
-        <div className="right-container">
+  
           <div className="form-container">
             <form onSubmit={handlePocketMoneySubmit}>
-              <h2>Pocket Money Record</h2>
+              <h2>Savings</h2>
               <label>
-                Pocket Money: 
-                <input type="number" value={pocketMoney} 
-                onChange={handlePocketMoneyChange} 
-                style={{ marginLeft: '5px' }} 
+                Pocket Money:
+                <input
+                  type="number"
+                  value={pocketMoney}
+                  onChange={handlePocketMoneyChange}
+                  style={{ marginLeft: '5px' }}
                 />
               </label>
-              <br/>
-              <br/>
+              <br />
+              <br />
               <label>
-                Description: 
+                Description:
                 <input
                   type="text"
                   value={transactionDescription}
                   onChange={handleDescriptionChange}
-                  style={{ marginLeft: '5px' }} 
+                  style={{ marginLeft: '5px' }}
                 />
               </label>
-              <br/>
-              <br/>
+              <br />
+              <br />
               <button type="submit">Add</button>
             </form>
-
+  
             <form>
               <h2>Spending</h2>
               <label>
-                Amount Spent: 
+                Amount Spent:
                 <input
                   type="number"
                   value={spendingAmount}
                   onChange={handleSpendingAmountChange}
-                  style={{ marginLeft: '5px' }} 
+                  style={{ marginLeft: '5px' }}
                 />
               </label>
-              <br/>
-              <br/>
+              <br />
+              <br />
               <label>
                 Description:
                 <input
                   type="text"
                   value={spendingDescription}
                   onChange={handleSpendingDescriptionChange}
-                  style={{ marginLeft: '5px' }} 
+                  style={{ marginLeft: '5px' }}
                 />
               </label>
-              <br/>
-              <br/>
+              <br />
+              <br />
               <button type="button" onClick={handleSpendMoney}>
                 Spend
               </button>
             </form>
           </div>
-
+        </div>
+  
+        <div className="right-container">
           <div>
             <h2>Transaction List</h2>
             <ul>
               {transactionList.map((transaction, index) => (
                 <li key={index}>
-                  {transaction.description} - €{transaction.amount.toFixed(2)}
+                  {transaction.description} - €{Math.abs(transaction.amount).toLocaleString("en-IE", { minimumFractionDigits: 2 })}
                 </li>
               ))}
             </ul>
-            <p style={{ fontWeight: 'bold' }}>Total Saved: €{totalSaved.toFixed(2)}</p>
+            <p style={{ fontWeight: 'bold' }}>Total Saved: €{totalSaved.toLocaleString("en-IE", { minimumFractionDigits: 2 })}</p>
+            {totalSaved >= goal ? (
+              <p style={{ fontWeight: 'bold' }}>Goal Reached!</p>
+            ) : (
+              <p style={{ fontWeight: 'bold' }}>Amount Left to Save: €{(goal - totalSaved).toLocaleString("en-IE", { minimumFractionDigits: 2 })}</p>
+            )}
           </div>
+        </div>
+      </div>
+  
+      <div className="save-container">
+        <div className="save-button-container">
+          <button onClick={handleSave}>Save</button>
+          
+          <p className="save-note">* You must be logged in to save your work.</p>
+          
         </div>
       </div>
     </div>
   );
+  
 };
 
 export default Savings;

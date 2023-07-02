@@ -1,5 +1,6 @@
 import React from 'react';
 import logo from '../images/coin_quest.png';
+import { Link } from 'react-router-dom';
 import '../styles/Navbar.css';
 
 export default function Navbar() {
@@ -17,6 +18,10 @@ export default function Navbar() {
         <CustomLink href="/Shopping">Shopping</CustomLink>
         <CustomLink href="/VideoPage">Videos</CustomLink>
       </ul>
+
+      <div className="login-button-container">
+      <Link to="/login" className="login-button">Log In</Link>
+      </div>
     </nav>
   );
 }
