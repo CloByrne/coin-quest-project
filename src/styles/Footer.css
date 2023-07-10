@@ -4,7 +4,9 @@
     bottom: 0;
     width: 100%;
     background-color: #f8f8f8;
-    padding: 10px;
+    padding: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
     text-align: center;
   }
   
@@ -14,8 +16,14 @@
     top: -4px;
     left: 50%;
     transform: translateX(-50%);
-    width: 100%;
+    width: calc(100% + 40px);
     height: 4px;
     background: linear-gradient(to right, #ff5e7d, #ffcb00, #32de7b, #00a2ff);
   }
   
+  .footer p {
+    text-align: center;
+    font-size: 18px;
+    color: #ff5e7d;
+    margin-bottom: 20px;
+  }

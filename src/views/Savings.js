@@ -1,6 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import '../styles/Savings.css';
+import React, { useState } from 'react';
+import SavingsGoal from '../components/SavingsGoal';
+import SavingsForm from '../components/SavingsForm';
+import TransactionList from '../components/TransactionList';
+import SaveButton from '../components/SaveButton';
 import Login from '../components/Login';
+import '../styles/Savings.css';
 
 const Savings = () => {
   const [goal, setGoal] = useState('');
@@ -8,25 +12,13 @@ const Savings = () => {
   const [newGoal, setNewGoal] = useState('');
   const [pocketMoney, setPocketMoney] = useState(0);
   const [transactionDescription, setTransactionDescription] = useState('');
+  const [transactionDate, setTransactionDate] = useState('');
   const [transactionList, setTransactionList] = useState([]);
   const [totalSaved, setTotalSaved] = useState(0);
   const [spendingAmount, setSpendingAmount] = useState(0);
   const [spendingDescription, setSpendingDescription] = useState('');
+  const [spendingDate, setSpendingDate] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  useEffect(() => {
-    // Fetch the savings goal from the backend API
-    fetch('/api/savings_goals')
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.length > 0) {
-          setGoal(data[0].amount.toString());
-        }
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
-  }, []);
 
   const handleGoalChange = (event) => {
     setNewGoal(event.target.value);
@@ -34,30 +26,12 @@ const Savings = () => {
 
   const handleGoalAction = () => {
     if (!editingGoal) {
-      // Start editing the goal
       setEditingGoal(true);
     } else {
-      // Save the new goal
       if (newGoal) {
         setGoal(newGoal);
         setEditingGoal(false);
         setNewGoal('');
-
-        // Update the savings goal in the backend API
-        fetch('/api/savings_goals/1', {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ amount: newGoal }),
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            console.log('Savings goal updated:', data);
-          })
-          .catch((error) => {
-            console.error('Error:', error);
-          });
       }
     }
   };
@@ -73,18 +47,20 @@ const Savings = () => {
 
   const handlePocketMoneySubmit = (event) => {
     event.preventDefault();
-
+  
     if (pocketMoney !== 0) {
       const transaction = {
         amount: pocketMoney,
         description: transactionDescription,
+        date: transactionDate || new Date().toISOString().split('T')[0], // Use current date if transactionDate is blank
       };
-
+  
       const updatedTransactionList = [...transactionList, transaction];
       setTransactionList(updatedTransactionList);
       setTotalSaved(totalSaved + pocketMoney);
       setPocketMoney(0);
       setTransactionDescription('');
+      setTransactionDate('');
     }
   };
 
@@ -102,22 +78,38 @@ const Savings = () => {
       const transaction = {
         amount: -spendingAmount,
         description: spendingDescription,
+        date: spendingDate || new Date().toISOString().split('T')[0], // Use current date if spendingDate is blank
       };
-
+  
       const updatedTransactionList = [...transactionList, transaction];
       setTransactionList(updatedTransactionList);
       setTotalSaved(totalSaved - spendingAmount);
       setSpendingAmount(0);
       setSpendingDescription('');
+      setTransactionDate('');
+      setSpendingDate('');
     }
+  };
+
+  const handleTransactionDateChange = (event) => {
+    setTransactionDate(event.target.value);
+  };
+
+  const handleSpendingDateChange = (event) => {
+    setSpendingDate(event.target.value);
+  };
+
+  const handleDeleteTransaction = (index) => {
+    const updatedTransactionList = [...transactionList];
+    const deletedTransaction = updatedTransactionList.splice(index, 1);
+    setTransactionList(updatedTransactionList);
+    setTotalSaved(totalSaved - deletedTransaction[0].amount);
   };
 
   const handleSave = () => {
     if (isLoggedIn) {
-      // Perform save action
       console.log('Saving data...');
     } else {
-      // Prompt login or registration
       console.log('Please login or register to save.');
     }
   };
@@ -125,108 +117,49 @@ const Savings = () => {
   return (
     <div className="main-container">
       <h1>My Savings</h1>
+      {isLoggedIn ? (
+        <p className="save-note">You are logged in. Your work is automatically retrieved.</p>
+      ) : (
+        <p className="save-note">Please log in to save or retrieve your work.</p>
+      )}
       <div className="container">
         <div className="left-container">
-          <h2>Savings Goal: €{goal}</h2>
-          {editingGoal ? (
-            <div>
-              <input type="number" value={newGoal} onChange={handleGoalChange} />
-              <button onClick={handleGoalAction}>Save Goal</button>
-            </div>
-          ) : (
-            <button onClick={handleGoalAction}>{goal ? 'Edit Goal' : 'Add Goal'}</button>
-          )}
-  
-          <div className="form-container">
-            <form onSubmit={handlePocketMoneySubmit}>
-              <h2>Savings</h2>
-              <label>
-                Pocket Money:
-                <input
-                  type="number"
-                  value={pocketMoney}
-                  onChange={handlePocketMoneyChange}
-                  style={{ marginLeft: '5px' }}
-                />
-              </label>
-              <br />
-              <br />
-              <label>
-                Description:
-                <input
-                  type="text"
-                  value={transactionDescription}
-                  onChange={handleDescriptionChange}
-                  style={{ marginLeft: '5px' }}
-                />
-              </label>
-              <br />
-              <br />
-              <button type="submit">Add</button>
-            </form>
-  
-            <form>
-              <h2>Spending</h2>
-              <label>
-                Amount Spent:
-                <input
-                  type="number"
-                  value={spendingAmount}
-                  onChange={handleSpendingAmountChange}
-                  style={{ marginLeft: '5px' }}
-                />
-              </label>
-              <br />
-              <br />
-              <label>
-                Description:
-                <input
-                  type="text"
-                  value={spendingDescription}
-                  onChange={handleSpendingDescriptionChange}
-                  style={{ marginLeft: '5px' }}
-                />
-              </label>
-              <br />
-              <br />
-              <button type="button" onClick={handleSpendMoney}>
-                Spend
-              </button>
-            </form>
-          </div>
+          <SavingsForm
+            pocketMoney={pocketMoney}
+            transactionDescription={transactionDescription}
+            handlePocketMoneyChange={handlePocketMoneyChange}
+            handleDescriptionChange={handleDescriptionChange}
+            handlePocketMoneySubmit={handlePocketMoneySubmit}
+            spendingAmount={spendingAmount}
+            spendingDescription={spendingDescription}
+            handleSpendingAmountChange={handleSpendingAmountChange}
+            handleSpendingDescriptionChange={handleSpendingDescriptionChange}
+            handleSpendMoney={handleSpendMoney}
+            handleTransactionDateChange={handleTransactionDateChange}
+            handleSpendingDateChange={handleSpendingDateChange}
+          />
         </div>
-  
         <div className="right-container">
-          <div>
-            <h2>Transaction List</h2>
-            <ul>
-              {transactionList.map((transaction, index) => (
-                <li key={index}>
-                  {transaction.description} - €{Math.abs(transaction.amount).toLocaleString("en-IE", { minimumFractionDigits: 2 })}
-                </li>
-              ))}
-            </ul>
-            <p style={{ fontWeight: 'bold' }}>Total Saved: €{totalSaved.toLocaleString("en-IE", { minimumFractionDigits: 2 })}</p>
-            {totalSaved >= goal ? (
-              <p style={{ fontWeight: 'bold' }}>Goal Reached!</p>
-            ) : (
-              <p style={{ fontWeight: 'bold' }}>Amount Left to Save: €{(goal - totalSaved).toLocaleString("en-IE", { minimumFractionDigits: 2 })}</p>
-            )}
-          </div>
+          <SavingsGoal
+            goal={goal}
+            editingGoal={editingGoal}
+            newGoal={newGoal}
+            handleGoalChange={handleGoalChange}
+            handleGoalAction={handleGoalAction}
+          />
+          <TransactionList
+            transactionList={transactionList}
+            totalSaved={totalSaved}
+            goal={goal}
+            transactionDate={transactionDate}
+            spendingDate={spendingDate}
+            onDeleteTransaction={handleDeleteTransaction}
+          />
         </div>
       </div>
-  
-      <div className="save-container">
-        <div className="save-button-container">
-          <button onClick={handleSave}>Save</button>
-          
-          <p className="save-note">* You must be logged in to save your work.</p>
-          
-        </div>
-      </div>
+      <SaveButton isLoggedIn={isLoggedIn} handleSave={handleSave} />
     </div>
   );
-  
 };
 
 export default Savings;

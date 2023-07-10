@@ -13,8 +13,8 @@ function Home() {
     navigate('/Savings');
   };
 
-  const navigateToShopping = () => {
-    navigate('/Shopping');
+  const navigateToStore = () => {
+    navigate('/Store');
   };
 
   const navigateToVideos = () => {
@@ -24,7 +24,7 @@ function Home() {
   return (
     <div className="main-container">
       <div className="home-container">
-        <h1>Welcome to Coin Quest</h1>
+        <h1>Welcome to Coin Quest Academy</h1>
         <div className="home-sub-text">
           <p>Welcome to Coin Quest Academy where you can learn about the importance of saving your money and the impact of spending</p>
         </div>
@@ -52,8 +52,8 @@ function Home() {
             <p>Update My Savings</p>
           </Link>
         </div>
-        <div className="button" onClick={navigateToShopping}>
-          <Link to="/shopping">
+        <div className="button" onClick={navigateToStore}>
+          <Link to="/store">
             <img src={shoppingIcon} alt="Shopping" />
             <p>Try out your budgeting skill in the shop</p>
           </Link>

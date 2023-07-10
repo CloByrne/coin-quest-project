@@ -15,13 +15,10 @@ export default function Navbar() {
       <ul className="navbar-links">
         <CustomLink href="/">Home</CustomLink>
         <CustomLink href="/Savings">My Savings</CustomLink>
-        <CustomLink href="/Shopping">Shopping</CustomLink>
+        <CustomLink href="/Store">Shopping</CustomLink>
         <CustomLink href="/VideoPage">Videos</CustomLink>
+        <CustomLink href="/Login">Log in</CustomLink>
       </ul>
-
-      <div className="login-button-container">
-      <Link to="/login" className="login-button">Log In</Link>
-      </div>
     </nav>
   );
 }

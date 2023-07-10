@@ -71,7 +71,9 @@ h2 {
   text-align: center;
   font-size: 30px;
   font-weight: bold;
-  margin: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 100%;
   background: linear-gradient(to right, #ff5e7d, #ffcb00, #32de7b, #00a2ff);
   padding: 10px 20px;
   border-radius: 4px;

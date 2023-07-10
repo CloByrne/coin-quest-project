@@ -21,6 +21,7 @@
   background-color: #fff4d6;
   border-radius: 8px;
   padding: 20px;
+
 }
 
 .left-container {
@@ -29,6 +30,7 @@
   border-radius: 8px;
   padding: 20px;
   margin-right: 10px; 
+  
 }
 
 .right-container {
@@ -42,16 +44,25 @@
 
 .form-container {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
 }
+
 
 .form {
   width: 45%;
   margin-bottom: 20px;
+  margin: 0 auto;
 }
 
 ul {
   margin-top: 20px;
+  list-style-type: disc;
+}
+
+li {
+  margin-left: 20px;
+  color: #333333;
 }
 
 @media (max-width: 600px) {
@@ -64,46 +75,13 @@ ul {
   }
 }
 
-h1 {
-  text-align: center;
-  padding-bottom: 15px;
-  color: #ff5e7d;
-  font-weight: bold;
-  font-size: 30px;
-  position: relative;
-  width: 100%;
-}
-
-h1::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: calc(100% + 40px); 
-  height: 4px;
-  background: linear-gradient(to right, #ff5e7d, #ffcb00, #32de7b, #00a2ff);
-}
-
-
-
-
-h2 {
-  text-align: center;
-  font-size: 30px;
-  font-weight: bold;
-  margin: 20px;
-  background: linear-gradient(to right, #ff5e7d, #ffcb00, #32de7b, #00a2ff);
-  padding: 10px 20px;
-  border-radius: 4px;
-  color: #333333;
-  
-}
 
 button {
   display: block;
+  margin-top: 0px;
   margin-bottom: 20px;
-  padding: 10px 20px;
+  margin-right:20px;
+  padding: 0px;
   background-color: #ff5e7d;
   border: none;
   border-radius: 4px;
@@ -121,6 +99,8 @@ button:hover {
 
 label {
   margin-bottom: 10px;
+  margin-left: 20px;
+  font-size: 14px;
 }
 
 input[type="number"],
@@ -128,19 +108,23 @@ input[type="text"] {
   padding: 5px;
   border: 1px solid #cccccc;
   border-radius: 4px;
+  margin-right:5px;
 }
 
 input[type="number"]:focus {
   outline: none;
   border-color: #ff5e7d;
   box-shadow: 0 0 0 2px rgba(255, 94, 125, 0.5);
+  
 }
 
-p {
-  text-align: center;
+.left-container p,
+.right-container p {
   font-size: 18px;
   color: #333333;
-  margin-bottom: 20px;
+  margin-bottom: 0px;
+  margin-left: 20px;
+  font-weight: normal;
 }
 
 .save-container {
@@ -154,22 +138,39 @@ p {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #fff4d6;
   border-radius: 8px;
   padding: 20px;
   margin: 0 10px;
 }
 
 .save-button {
-  margin-bottom: 10px; /* Add margin to separate the button and text */
+  margin-bottom: 10px;
 }
 
 .save-note {
-  font-size: 14px;
+  font-size: 15px;
   color: #777777;
   text-align: center;
 }
 
+.goal-form p {
+  text-align: center;
+  font-size: 18px;
+  margin: 0;
+  margin-bottom: 0px;
+  margin-left: 20px;
+}
 
+ul.transaction-list {
+  margin-top: 20px;
+  list-style-type: disc !important;
+}
 
+ul.transaction-list li {
+  margin-left: 20px;
+  color: #333333;
+}
 
+.transaction-date {
+  margin-right: 5px; /* Adjust the margin value as needed */
+}
