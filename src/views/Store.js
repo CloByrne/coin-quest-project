@@ -5,7 +5,7 @@ import '../styles/Store.css';
 const Store = () => {
   const [products, setProducts] = useState([]);
   const [cartItems, setCartItems] = useState([]);
-  const [budget, setBudget] = useState(0);
+  const [budget, setBudget] = useState();
 
   useEffect(() => {
     // Fetch the list of products from the fakeStoreApi
@@ -44,6 +44,8 @@ const Store = () => {
     setBudget(Number(event.target.value));
   };
 
+  const remainingBudget = budget - (calculateTotalCost()).toFixed(2);
+
   return (
     <div className="store-container">
       
@@ -59,7 +61,7 @@ const Store = () => {
                 <p>{product.title}</p>
                 <p>€{product.price}</p>
               </div>
-              <button onClick={() => addToCart(product)}>Add to Cart</button>
+              <button onClick={() => addToCart(product)} className="add-button">Add</button>
             </li>
           ))}
         </ul>
@@ -75,25 +77,33 @@ const Store = () => {
                 <p>{item.title}</p>
                 <p>€{item.price}</p>
               </div>
-              <button onClick={() => removeFromCart(item.id)}>Remove</button>
+              <button onClick={() => removeFromCart(item.id)} className="remove-button">Remove</button>
             </li>
           ))}
         </ul>
         <p>Total Cost: €{calculateTotalCost()}</p>
 
         <h2>Budget</h2>
-        <input
-          type="number"
-          value={budget}
-          onChange={handleBudgetChange}
-          placeholder="Enter your budget"
-        />
+        <p>Enter how much money you have to spend</p>
+        <div className="budget-container">
+          <input
+            type="number"
+            value={budget}
+            onChange={handleBudgetChange}
+            placeholder="Enter your budget"
+          />
+        </div>
 
         <h2>Can You Afford Shopping?</h2>
-        {canAffordShopping() ? (
+        {budget === 0 ? (
+          <p>Enter your budget for feedback</p>
+        ) : canAffordShopping() ? (
           <p>Yes! You can afford your shopping.</p>
         ) : (
-          <p>Sorry, you cannot afford your shopping.</p>
+          <p>
+            Sorry, you cannot afford your shopping.             
+            You need to reduce the cart total by €{Math.abs(remainingBudget)} to match your budget.
+          </p>
         )}
       </div>
       </div>

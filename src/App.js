@@ -5,7 +5,6 @@ import Home from './views/Home';
 import Savings from './views/Savings';
 import Store from './views/Store';
 import VideoPage from './views/VideoPage';
-import VideoList from './components/VideoList'; // Update import statement
 import Footer from './components/Footer';
 import Login from './components/Login';
 import Register from './components/Register';
@@ -38,7 +37,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/Savings" element={<Savings />} />
         <Route path="/Store" element={<Store />} />
-        <Route path="/VideoPage" element={<VideoPage videos={VideoList} />} /> {/* Pass VideoList as prop */}
+        <Route path="/VideoPage" element={<VideoPage />} /> 
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} /> 
       </Routes>

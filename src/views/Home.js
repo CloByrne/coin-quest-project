@@ -32,17 +32,6 @@ function Home() {
 
       <div className="home-body">
         <h2 className="home-subtitle">What would you like to do today?</h2>
-        {/*<div className="home-paragraphs">
-          <p className="home-paragraph">
-            <Link to="/savings">Update My Savings</Link>
-          </p>
-          <p className="home-paragraph">
-            <Link to="/shopping">Try out your budgeting skill in the shop</Link>
-          </p>
-          <p className="home-paragraph">
-            <Link to="/learning">Learn about saving your money here!</Link>
-          </p>
-        </div>*/}
       </div>
 
       <div className="buttons">
