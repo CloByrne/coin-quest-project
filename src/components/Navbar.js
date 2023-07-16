@@ -1,34 +1,57 @@
-import React from 'react';
+import React, { useState } from 'react';
 import logo from '../images/coin_quest.png';
 import { Link } from 'react-router-dom';
 import '../styles/Navbar.css';
 
-export default function Navbar() {
+const Navbar = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  const renderLoginButton = () => {
+    if (isAuthenticated) {
+      return <button onClick={handleLogout}>Log Out</button>;
+    } else {
+      return <Link to="/login">Log In</Link>;
+    }
+  };
+
+  const handleLogout = () => {
+    // Perform logout logic
+    setIsAuthenticated(false);
+  };
+
   return (
     <nav className="nav">
       <div className="logo-container">
         <a href="/">
-          <img src={logo} alt="Project Fitness logo" width="300" />
+          <img src={logo} alt="Coin Quest logo" width="300" />
         </a>
       </div>
-      
+
       <ul className="navbar-links">
-        <CustomLink href="/">Home</CustomLink>
-        <CustomLink href="/Savings">My Savings</CustomLink>
-        <CustomLink href="/Store">Shopping</CustomLink>
-        <CustomLink href="/VideoPage">Videos</CustomLink>
-        <CustomLink href="/Login">Log in</CustomLink>
+        <li className="nav-link">
+          <Link to="/">Home</Link>
+        </li>
+        <li className="nav-link">
+          <Link to="/savings">My Savings</Link>
+        </li>
+        <li className="nav-link">
+          <Link to="/store">Shopping</Link>
+        </li>
+        <li className="nav-link">
+          <Link to="/videoPage">Videos</Link>
+        </li>
+        {isAuthenticated ? (
+          <li>
+            <button onClick={handleLogout}>Log out</button>
+          </li>
+        ) : (
+          <li>
+            <Link to="/login">Log in</Link>
+          </li>
+        )}
       </ul>
     </nav>
   );
-}
+};
 
-function CustomLink({ href, children }) {
-  const path = window.location.pathname;
-
-  return (
-    <li className={`nav-link ${path === href ? 'active' : ''}`}>
-      <a href={href}>{children}</a>
-    </li>
-  );
-}
+export default Navbar;

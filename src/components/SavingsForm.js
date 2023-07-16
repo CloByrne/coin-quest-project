@@ -33,7 +33,7 @@ const SavingsForm = ({
     <div>
       <form onSubmit={handlePocketMoneySubmit}>
         <h2>Savings</h2>
-        <label>
+        <label className="pocket-money">
           Pocket Money:
           <input
             type="number"
@@ -44,7 +44,7 @@ const SavingsForm = ({
         </label>
         <br />
         <br />
-        <label>
+        <label className="input-description">
           Description:
           <input
             type="text"
@@ -55,7 +55,7 @@ const SavingsForm = ({
         </label>
         <br />
         <br />
-        <label>
+        <label className="input-date">
           Date:
           <input
             type="date"
@@ -64,12 +64,12 @@ const SavingsForm = ({
             style={{ marginLeft: '5px' }}
           />
         </label>
-        <button type="submit">Add</button>
+        <button type="submit" className="pocket-money-button">Add</button>
       </form>
 
       <form>
         <h2>Spending</h2>
-        <label>
+        <label className="spending-money">
           Amount Spent:
           <input
             type="number"
@@ -80,7 +80,7 @@ const SavingsForm = ({
         </label>
         <br />
         <br />
-        <label>
+        <label className="spending-description">
           Description:
           <input
             type="text"
@@ -91,7 +91,7 @@ const SavingsForm = ({
         </label>
         <br />
         <br />
-        <label>
+        <label className="spending-date">
           Date:
           <input
             type="date"
@@ -100,7 +100,7 @@ const SavingsForm = ({
             style={{ marginLeft: '5px' }}
           />
         </label>
-        <button type="button" onClick={handleSpendMoney}>
+        <button type="button" onClick={handleSpendMoney} className="spend-button">
           Spend
         </button>
       </form>

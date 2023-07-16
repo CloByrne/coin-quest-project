@@ -14,22 +14,23 @@ const TransactionList = ({ transactionList, totalSaved, goal, onDeleteTransactio
           {transactionList.map((transaction, index) => (
             <li key={index}>
               <span className="transaction-date" style={{ marginLeft: '10px', fontStyle: 'italic' }}>{transaction.date ? transaction.date : '-'}</span>
-              <span>{transaction.description}</span> : {transaction.amount < 0 ? '-' : ''}€
-              {Math.abs(transaction.amount).toLocaleString('en-IE', { minimumFractionDigits: 2 })}
+              <span className="transaction-description">{transaction.description}</span>
+              <span className="transaction-amount"> : {transaction.amount < 0 ? '-' : ''}€
+              {Math.abs(transaction.amount).toLocaleString('en-IE', { minimumFractionDigits: 2 })} </span>
               <button onClick={() => onDeleteTransaction(index)}>
                 <FontAwesomeIcon icon={faTrash} />
               </button>
             </li>
           ))}
         </ul>
-        <p style={{ fontWeight: 'normal' }}>
+        <p className="total-saved" style={{ fontWeight: 'normal' }}>
           Total Saved: {totalSaved < 0 ? '-' : ''}€
           {Math.abs(totalSaved).toLocaleString('en-IE', { minimumFractionDigits: 2 })}
         </p>
         {totalSaved >= goal ? (
-          <p style={{ fontWeight: 'bold' }}>Goal Reached!</p>
+          <p className="goal-reached-message" style={{ fontWeight: 'bold' }}>Goal Reached!</p>
         ) : (
-          <p style={{ fontWeight: 'normal' }}>
+          <p className="amount-left-to-save" style={{ fontWeight: 'normal' }}>
             Amount Left to Save: {amountLeftToSave < 0 ? '-' : ''}€
             {Math.abs(amountLeftToSave).toLocaleString('en-IE', { minimumFractionDigits: 2 })}
           </p>

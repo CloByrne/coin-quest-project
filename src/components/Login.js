@@ -13,7 +13,13 @@ const Login = () => {
     const { username, password } = data;
   
     try {
-      const response = await axios.post('http://localhost:3000/api/login', { user: { username, password } });
+      const response = await axios.post('http://localhost:3000/api/login', { username, password });
+
+      // Get the token from the response
+      const token = response.data.token;
+
+      // Store the token in local storage or in the state management system
+      localStorage.setItem('token', token);
   
       // Redirect to the protected savings page
       navigate('/savings');

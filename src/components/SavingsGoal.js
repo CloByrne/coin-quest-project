@@ -1,17 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const SavingsGoal = ({ goal, editingGoal, newGoal, handleGoalChange, handleGoalAction }) => {
+  const [error, setError] = useState(false); // State variable for tracking the error
+
+  const handleSaveGoal = () => {
+    if (!newGoal) {
+      setError(true); // Set the error state if the input field is blank
+    } else {
+      setError(false); // Reset the error state if the input field is not blank
+      handleGoalAction();
+    }
+  };
+
   return (
-    <div>
+    <div className="saving-goal">
       <h2>Savings Goal: €{goal}</h2>
       {editingGoal ? (
         <label>
-          <div className="goal-form"> {/* Add the goal-form class name here */}
+          <div className="goal-form">
             <p style={{ fontWeight: 'normal', marginBottom: '2px', marginRight: '20px', display: 'inline-block' }}>
               Enter your target savings amount:
             </p>
             <input type="number" value={newGoal} onChange={handleGoalChange} style={{ display: 'inline-block' }} />
-            <button onClick={handleGoalAction}>Save Goal</button>
+            {error && <p style={{ color: 'red' }}>Please enter a savings amount.</p>} {/* Render the error message */}
+            <button onClick={handleSaveGoal}>Save Goal</button>
           </div>
         </label>
       ) : (

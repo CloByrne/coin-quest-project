@@ -1,5 +1,5 @@
-// Import the necessary components and views
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './views/Home';
 import Savings from './views/Savings';
@@ -8,42 +8,42 @@ import VideoPage from './views/VideoPage';
 import Footer from './components/Footer';
 import Login from './components/Login';
 import Register from './components/Register';
+import Logout from './components/Logout';
+import ProtectedRoute from './components/ProtectedRoute';
+import ProtectedPage from './views/ProtectedPage';
 
-function App() {
-  // Define a variable to hold the component to render based on the current URL
-  let component;
-  switch (window.location.pathname) {
-    case "/":
-      component = <Home />;
-      break;
-    case "/Savings":
-      component = <Savings />;
-      break;
-    case "/Store":
-      component = <Store />;
-      break;
-    case "/VideoPage":
-      component = <VideoPage />;
-      break;
-    default:
-      component = null;
-  }
+const App = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  const handleLogin = () => {
+    // Perform login logic
+    setIsAuthenticated(true);
+  };
+
+  const handleLogout = () => {
+    // Perform logout logic
+    setIsAuthenticated(false);
+  };
 
   return (
-    // Render the Navbar component and the appropriate view component based on the URL
     <Router>
-      <Navbar />
+      <Navbar isAuthenticated={isAuthenticated} handleLogout={handleLogout} />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/Savings" element={<Savings />} />
-        <Route path="/Store" element={<Store />} />
-        <Route path="/VideoPage" element={<VideoPage />} /> 
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} /> 
+        <Route path="/savings" element={<Savings />} />
+        <Route path="/store" element={<Store />} />
+        <Route path="/videoPage" element={<VideoPage />} />
+        <Route path="/login" element={<Login handleLogin={handleLogin} />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/logout" element={<Logout handleLogout={handleLogout} />} />
+        <Route
+          path="/protected"
+          element={<ProtectedRoute isAuthenticated={isAuthenticated} component={ProtectedPage} />}
+        />
       </Routes>
       <Footer />
     </Router>
   );
-}
+};
 
 export default App;
