@@ -48,10 +48,12 @@ const Store = () => {
 
   return (
     <div className="store-container">
-      <h1>Store</h1>
+      <h1>Shopping</h1>
       <div className="container">
         <div className="left-container">
+        <div class="container-with-h2">
           <h2>Products</h2>
+          </div>
           <ul>
             {products.map((product) => (
               <li key={product.id}>
@@ -67,7 +69,9 @@ const Store = () => {
         </div>
 
         <div className="right-container">
+        <div class="container-with-h2">
           <h2>Shopping Cart</h2>
+          </div>
           <ul>
             {cartItems.map((item) => (
               <li key={item.id}>
@@ -81,8 +85,9 @@ const Store = () => {
             ))}
           </ul>
           <p>Total Cost: €{calculateTotalCost()}</p>
-
+          <div class="container-with-h2">
           <h2>Budget</h2>
+          </div>
           <p>Enter how much money you have to spend</p>
           <div className="budget-container">
             <input
@@ -92,8 +97,9 @@ const Store = () => {
               placeholder="Enter your budget"
             />
           </div>
-
+          <div class="container-with-h2">
           <h2>Can You Afford Your Shopping?</h2>
+          </div>
           {!budget ? (
             <p>Enter your budget for feedback</p>
           ) : canAffordShopping() ? (

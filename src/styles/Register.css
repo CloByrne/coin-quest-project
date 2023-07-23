@@ -48,3 +48,7 @@ p {
     color: #ff5e7d;
     font-weight: bold;
 }
+
+.success-message {
+  color: green;
+}

@@ -3,7 +3,7 @@ import SavingsGoal from '../components/SavingsGoal';
 import SavingsForm from '../components/SavingsForm';
 import TransactionList from '../components/TransactionList';
 import SaveButton from '../components/SaveButton';
-import Login from '../components/Login';
+/*import Login from '../components/Login';*/
 import '../styles/Savings.css';
 
 const Savings = () => {
@@ -18,7 +18,7 @@ const Savings = () => {
   const [spendingAmount, setSpendingAmount] = useState(0);
   const [spendingDescription, setSpendingDescription] = useState('');
   const [spendingDate, setSpendingDate] = useState('');
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  /*const [isLoggedIn, setIsLoggedIn] = useState(false);*/
 
   const handleGoalChange = (event) => {
     setNewGoal(event.target.value);
@@ -106,22 +106,22 @@ const Savings = () => {
     setTotalSaved(totalSaved - deletedTransaction[0].amount);
   };
 
-  const handleSave = () => {
+  /*const handleSave = () => {
     if (isLoggedIn) {
       console.log('Saving data...');
     } else {
       console.log('Please login or register to save.');
     }
-  };
+  };*/
 
   return (
     <div className="main-container">
       <h1>My Savings</h1>
-      {isLoggedIn ? (
+      {/*{isLoggedIn ? (
         <p className="save-note">You are logged in. Your work is automatically retrieved.</p>
       ) : (
         <p className="save-note">Please log in to save or retrieve your work.</p>
-      )}
+      )}*/}
       <div className="container">
         <div className="left-container">
           <SavingsForm
@@ -157,7 +157,7 @@ const Savings = () => {
           />
         </div>
       </div>
-      <SaveButton isLoggedIn={isLoggedIn} handleSave={handleSave} />
+      {/*<SaveButton isLoggedIn={isLoggedIn} handleSave={handleSave} />*/}
     </div>
   );
 };

@@ -32,7 +32,9 @@ const SavingsForm = ({
   return (
     <div>
       <form onSubmit={handlePocketMoneySubmit}>
+      <div className="container-with-h2">
         <h2>Savings</h2>
+        </div>
         <label className="pocket-money">
           Pocket Money:
           <input
@@ -68,7 +70,9 @@ const SavingsForm = ({
       </form>
 
       <form>
+      <div className="container-with-h2">
         <h2>Spending</h2>
+        </div>
         <label className="spending-money">
           Amount Spent:
           <input

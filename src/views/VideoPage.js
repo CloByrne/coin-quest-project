@@ -60,7 +60,9 @@ const VideoPage = () => {
       <h1>Videos</h1>
 
       <div className="grid-1">
+      <div class="container-with-h2">
         <h2>Money</h2>
+        </div>
         <div className="video-container">
           {videos.slice(0, 3).map((video, index) => (
             <div key={index} className="video-item">
@@ -80,7 +82,9 @@ const VideoPage = () => {
       </div>
 
       <div className="grid-2">
+      <div class="container-with-h2">
         <h2>Savings</h2>
+        </div>
         <div className="video-container">
           {videos.slice(3, 6).map((video, index) => (
             <div key={index} className="video-item">
@@ -100,7 +104,9 @@ const VideoPage = () => {
       </div>
 
       <div className="grid-3">
+      <div class="container-with-h2">
         <h2>Money Habits</h2>
+        </div>
         <div className="video-container">
           {videos.slice(6, 8).map((video, index) => (
             <div key={index} className="video-item">

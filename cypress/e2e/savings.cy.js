@@ -6,14 +6,6 @@ describe('Savings Page', () => {
     it('should display the page title', () => {
       cy.contains('h1', 'My Savings');
     });
-  
-    //it('should display a save note for logged in users', () => {
-      //cy.get('.save-note').should('contain', 'You are logged in. Your work is automatically retrieved.');
-    //});
-  
-    it('should display a save note for logged out users', () => {
-      cy.get('.save-note').should('contain', 'Please log in to save or retrieve your work.');
-    });
 
     it('show error message when saving a blank goal', () => {
         const newGoal = '';
@@ -36,7 +28,7 @@ describe('Savings Page', () => {
           });
       });
       
-      it('should allow entering and saving a savings goal', () => {
+      it('allow entering and saving a savings goal', () => {
         const newGoal = '50';
       
         cy.get('.right-container')
@@ -61,7 +53,7 @@ describe('Savings Page', () => {
           });
       });
       
-      it('should allow entering and submitting pocket money transaction', () => {
+      it('allow entering and submitting pocket money transaction', () => {
         const pocketMoneyAmount = '5.00';
         const transactionDescription = 'Pocket money';
         const transactionDate = '2023-01-01';
@@ -97,7 +89,7 @@ describe('Savings Page', () => {
           });
       });
       
-      it('should allow entering and submitting spending transaction', () => {
+      it('allow entering and submitting spending transaction', () => {
         const spendingAmount = '1.50';
         const spendingDescription = 'Sweets';
         const spendingDate = '2023-01-02';
@@ -135,7 +127,7 @@ describe('Savings Page', () => {
       });
       
 
-      it('should allow deleting a transaction', () => {
+      it('allow deleting a transaction', () => {
         const pocketMoneyAmount = '5.00';
         const transactionDescription = 'Pocket money';
         const transactionDate = '2023-01-01';
@@ -165,7 +157,7 @@ describe('Savings Page', () => {
       });
       
   
-      it('should display the total saved amount', () => {
+      it('display the total saved amount', () => {
         const pocketMoneyAmount = '50.00';
         const spendingAmount = '20.00';
         const goal = '100.00';
@@ -204,7 +196,7 @@ describe('Savings Page', () => {
       
       
   
-      it('should display the goal reached message', () => {
+      it('display the goal reached message', () => {
         const goal = '50.00';
         const pocketMoneyAmount = '75.00';
         const spendingAmount = '25.00'; 
@@ -231,7 +223,7 @@ describe('Savings Page', () => {
       
       
   
-      it('should display the amount left to save', () => {
+      it('display the amount left to save', () => {
         const goal = '100.00';
         const pocketMoneyAmount = '40.00';
       
@@ -251,136 +243,4 @@ describe('Savings Page', () => {
         // Verify the amount left to save is displayed
         cy.get('.transaction-list .amount-left-to-save').should('contain', amountLeftToSave.toFixed(2));
       });
-      
-/*      
-  
-    it('should display a save button for logged in users', () => {
-      cy.get('.save-button button').should('contain', 'Save');
-    });
-  
-    it('should display a login message for logged out users', () => {
-      cy.get('.save-button').should('contain', 'Please login or register to save.');
-    });
-  });
-
-  describe('Savings Form', () => {
-    beforeEach(() => {
-      cy.visit('/savings'); // Assuming the page is served at /savings
-    });
-  
-    it('should allow entering and submitting pocket money transaction', () => {
-      const pocketMoneyAmount = '50.00';
-      const transactionDescription = 'Received pocket money';
-  
-      cy.get('.pocket-money input[name="amount"]').type(pocketMoneyAmount);
-      cy.get('.pocket-money input[name="description"]').type(transactionDescription);
-      cy.get('.pocket-money button[type="submit"]').click();
-  
-      cy.get('.transaction-list .transaction').should('have.length', 1);
-      cy.get('.transaction-list .transaction .amount').should('contain', pocketMoneyAmount);
-      cy.get('.transaction-list .transaction .description').should('contain', transactionDescription);
-      cy.get('.transaction-list .transaction .date').should('contain', Cypress.moment().format('YYYY-MM-DD'));
-    });
-  
-    it('should allow entering and submitting spending transaction', () => {
-      const spendingAmount = '20.00';
-      const spendingDescription = 'Bought groceries';
-  
-      cy.get('.spending input[name="amount"]').type(spendingAmount);
-      cy.get('.spending input[name="description"]').type(spendingDescription);
-      cy.get('.spending button').click();
-  
-      cy.get('.transaction-list .transaction').should('have.length', 1);
-      cy.get('.transaction-list .transaction .amount').should('contain', `-${spendingAmount}`);
-      cy.get('.transaction-list .transaction .description').should('contain', spendingDescription);
-      cy.get('.transaction-list .transaction .date').should('contain', Cypress.moment().format('YYYY-MM-DD'));
-    });
-  });
-  
-  describe('Savings Goal', () => {
-    beforeEach(() => {
-      cy.visit('/savings'); // Assuming the page is served at /savings
-    });
-  
-    it('should allow entering and saving a savings goal', () => {
-      const newGoal = 'Buy a new car';
-  
-      cy.get('.savings-goal input').type(newGoal);
-      cy.get('.savings-goal button').click();
-  
-      cy.get('.savings-goal input').should('have.value', '');
-      cy.get('.savings-goal').should('not.have.class', 'editing');
-      cy.get('.savings-goal').should('contain', newGoal);
-    });
-  });
-  
-  describe('Transaction List', () => {
-    beforeEach(() => {
-      cy.visit('/savings'); // Assuming the page is served at /savings
-    });
-  
-    it('should allow deleting a transaction', () => {
-      cy.get('.transaction-list .transaction').should('have.length', 2);
-      cy.get('.transaction-list .transaction:first-child button').click();
-      cy.get('.transaction-list .transaction').should('have.length', 1);
-    });
-  
-    it('should display the total saved amount', () => {
-      const pocketMoneyAmount = '50.00';
-      const spendingAmount = '20.00';
-  
-      cy.get('.pocket-money input[name="amount"]').type(pocketMoneyAmount);
-      cy.get('.pocket-money input[name="description"]').type('Received pocket money');
-      cy.get('.pocket-money button[type="submit"]').click();
-  
-      cy.get('.spending input[name="amount"]').type(spendingAmount);
-      cy.get('.spending input[name="description"]').type('Bought groceries');
-      cy.get('.spending button').click();
-  
-      const totalSaved = parseFloat(pocketMoneyAmount) - parseFloat(spendingAmount);
-      cy.get('.transaction-list .total-saved').should('contain', totalSaved.toFixed(2));
-    });
-  
-    it('should display the goal reached message', () => {
-      const goal = '100.00';
-      const pocketMoneyAmount = '50.00';
-  
-      cy.get('.savings-goal input').type(goal);
-      cy.get('.savings-goal button').click();
-  
-      cy.get('.pocket-money input[name="amount"]').type(pocketMoneyAmount);
-      cy.get('.pocket-money input[name="description"]').type('Received pocket money');
-      cy.get('.pocket-money button[type="submit"]').click();
-  
-      cy.get('.transaction-list .goal-reached-message').should('contain', 'Goal Reached!');
-    });
-  
-    it('should display the amount left to save', () => {
-      const goal = '100.00';
-      const pocketMoneyAmount = '40.00';
-  
-      cy.get('.savings-goal input').type(goal);
-      cy.get('.savings-goal button').click();
-  
-      cy.get('.pocket-money input[name="amount"]').type(pocketMoneyAmount);
-      cy.get('.pocket-money input[name="description"]').type('Received pocket money');
-      cy.get('.pocket-money button[type="submit"]').click();
-  
-      const amountLeftToSave = parseFloat(goal) - parseFloat(pocketMoneyAmount);
-      cy.get('.transaction-list .amount-left-to-save').should('contain', amountLeftToSave.toFixed(2));
-    });
-  });
-  
-  describe('Save Button', () => {
-    beforeEach(() => {
-      cy.visit('/savings'); // Assuming the page is served at /savings
-    });
-  
-    it('should display a save button for logged in users', () => {
-      cy.get('.save-button button').should('contain', 'Save');
-    });
-  
-    it('should display a login message for logged out users', () => {
-      cy.get('.save-button').should('contain', 'Please login or register to save.');
-    });  */
   });

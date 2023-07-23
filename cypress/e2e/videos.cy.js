@@ -1,6 +1,6 @@
 describe('Video Page', () => {
   beforeEach(() => {
-    cy.visit('http://localhost:3001/VideoPage');
+    cy.visit('http://localhost:3001/Videos');
   });
 
   // Test to verify the main "Videos" heading is displayed

@@ -14,7 +14,9 @@ const SavingsGoal = ({ goal, editingGoal, newGoal, handleGoalChange, handleGoalA
 
   return (
     <div className="saving-goal">
+      <div className="container-with-h2">
       <h2>Savings Goal: €{goal}</h2>
+      </div>
       {editingGoal ? (
         <label>
           <div className="goal-form">

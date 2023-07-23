@@ -9,7 +9,9 @@ const TransactionList = ({ transactionList, totalSaved, goal, onDeleteTransactio
   return (
     <div className="transaction-list">
       <div>
+      <div className="container-with-h2">
         <h2>Transaction List</h2>
+        </div>
         <ul>
           {transactionList.map((transaction, index) => (
             <li key={index}>

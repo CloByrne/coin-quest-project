@@ -29,6 +29,16 @@ describe('Home Page', () => {
     it('display the "Learn about saving your money here!" button', () => {
       cy.contains('Learn about saving your money here!').should('be.visible');
     });
+
+    // Test to verify the "Work out who owes what on your bill" button is displayed
+    it('display the "Work out who owes what on your bill" button', () => {
+      cy.contains('Work out who owes what on your bill').should('be.visible');
+    });
+
+    // Test to verify the "Search the Robot database" button is displayed
+    it('display the "Search the Robot database" button', () => {
+      cy.contains('Search the Robot database').should('be.visible');
+    });
   
     // Button Navigation Tests
   
@@ -41,13 +51,25 @@ describe('Home Page', () => {
     // Test to verify navigation to the Store page when "Try out your budgeting skill in the shop" button is clicked
     it('navigate to the Store page when "Try out your budgeting skill in the shop" button is clicked', () => {
       cy.contains('Try out your budgeting skill in the shop').click();
-      cy.url().should('match', /\/store$/i);
+      cy.url().should('match', /\/shopping$/i);
     });
   
     // Test to verify navigation to the Learning page when "Learn about saving your money here!" button is clicked
     it('navigate to the Learning page when "Learn about saving your money here!" button is clicked', () => {
       cy.contains('Learn about saving your money here!').click();
-      cy.url().should('match', /\/videoPage$/i);
+      cy.url().should('match', /\/videos$/i);
+    });
+
+    // Test to verify navigation to the Bill splitter page when "Work out who owes what on your bill" button is clicked
+    it('navigate to the Splitter page when "Work out who owes what on your bill" button is clicked', () => {
+      cy.contains('Work out who owes what on your bill').click();
+      cy.url().should('match', /\/splitter$/i);
+    });
+
+    // Test to verify navigation to the Robots Database when "Search the Robot database" button is clicked
+    it('navigate to the Robots Database when "Search the Robot database" button is clicked', () => {
+      cy.contains('Search the Robot database').click();
+      cy.url().should('match', /\/robot$/i);
     });
   
     // Image Presence Tests
@@ -65,6 +87,16 @@ describe('Home Page', () => {
     // Test to verify the video icon image is displayed
     it('display the video icon image', () => {
       cy.get('img[alt="Videos"]').should('be.visible');
+    });
+
+    // Test to verify the splitter icon image is displayed
+    it('display the splitter icon image', () => {
+      cy.get('img[alt="Splitter"]').should('be.visible');
+    });
+
+    // Test to verify the robot icon image is displayed
+    it('display the robot icon image', () => {
+      cy.get('img[alt="Robots"]').should('be.visible');
     });
   });
   

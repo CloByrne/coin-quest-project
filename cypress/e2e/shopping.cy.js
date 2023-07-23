@@ -1,6 +1,6 @@
 describe('Store', () => {
     beforeEach(() => {
-      cy.visit('http://localhost:3001/Store'); 
+      cy.visit('http://localhost:3001/Shopping'); 
     });
   
     it('displays products', () => {
