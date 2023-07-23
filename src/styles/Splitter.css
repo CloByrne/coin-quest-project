@@ -59,6 +59,7 @@
   
   .expense-splitter form button:hover {
     background-color: #ffcb00;
+    box-shadow: 0 0 5px #00a2ff;
   }
   
   @media (max-width: 768px) {

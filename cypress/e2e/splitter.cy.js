@@ -29,22 +29,22 @@ describe('ExpenseSplitterPage', () => {
       cy.get('input[name="numberOfPeople"]').should('have.value', '3');
     });
   
-    it('should display an error message when submitting without total cost', () => {
-        cy.get('input[name="numberOfPeople"]').type('3');
-        cy.get('button[type="submit"]').click();
-        cy.get('input[name="totalCost"]').then($input => {
-          expect($input[0].validity.valueMissing).to.be.true;
-        });
-      });
-      
-      it('should display an error message when submitting without number of people', () => {
-        cy.get('input[name="totalCost"]').type('500');
-        cy.get('button[type="submit"]').click();
-        cy.get('input[name="numberOfPeople"]').then($input => {
-          expect($input[0].validity.valueMissing).to.be.true;
-        });
-      });
-  
+    it('should not split the expense when submitting without total cost', () => {
+      cy.get('input[name="numberOfPeople"]').type('3');
+      cy.get('button[type="submit"]').click();
+    
+      // Ensure that the expense split action is not allowed
+      cy.get('.expense-details').should('not.exist');
+    });
+
+    it('should not split the expense when submitting without number of people', () => {
+      cy.get('input[name="totalCost"]').type('3000');
+      cy.get('button[type="submit"]').click();
+    
+      // Ensure that the expense split action is not allowed
+      cy.get('.expense-details').should('not.exist');
+    });
+ 
     it('should display the total cost and number of people in the ExpenseResult component', () => {
       cy.get('input[name="totalCost"]').type('500');
       cy.get('input[name="numberOfPeople"]').type('3');
@@ -62,5 +62,12 @@ describe('ExpenseSplitterPage', () => {
       cy.get('.expense-result span').eq(2).should('contain.text', '€166.67');
     });
 
+    it('should display the cost per person rounded to 2 decimal places in the ExpenseResult component', () => {
+      cy.get('input[name="totalCost"]').type('1000');
+      cy.get('input[name="numberOfPeople"]').type('5');
+      cy.get('button[type="submit"]').click();
+      cy.wait(500); // Wait for the data to update
+      cy.get('.expense-result span').eq(2).should('contain.text', '€200.00');
+    });
   });
   

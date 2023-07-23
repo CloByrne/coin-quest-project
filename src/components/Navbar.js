@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import logo from '../images/coin_quest.png';
 import { Link } from 'react-router-dom';
 import { Navbar as BootstrapNavbar, Nav } from 'react-bootstrap';
@@ -7,7 +7,7 @@ import { faHome, faPiggyBank, faCartShopping, faMoneyBillTransfer, faRobot, faVi
 import '../styles/Navbar.css';
 
 const Navbar = () => {
-  const [showMenu, setShowMenu] = useState(false);
+  /*const [showMenu, setShowMenu] = useState(false);*/
 
   return (
     <BootstrapNavbar className="nav" bg="light" expand="lg">

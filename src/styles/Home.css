@@ -79,13 +79,61 @@
   margin: 10px;
   width: 180px;
   height: 180px;
-  border-radius: 50%;
-  background-color: #FF9A00;
   cursor: pointer;
   transition: background-color 0.3s;
   position: relative;
   overflow: hidden;
-  border: 6px double #ff5e7d;  
+  font-weight: bold;
+  border: 6px solid; /* Remove the double border */
+  border-image: conic-gradient(
+      from 0deg,
+      #ff5e7d,
+      #ffcb00,
+      #32de7b,
+      #00a2ff,
+      #ff5e7d
+    ) 1; 
+  border-radius: 50%;
+}
+
+.savings-button {
+  background-color: #FF6C8F; /* Pink */
+}
+
+.shopping-button {
+  background-color: #FFA14D; /* Orange */
+}
+
+.splitter-button {
+  background-color: #7DC67D; /* Green */
+}
+
+.creatures-button {
+  background-color: #68C0E1; /* Blue */
+}
+
+.videos-button {
+  background-color: #A15EFF; /* Purple */
+}
+
+.savings-button:hover {
+  background-color: #FF8FB3; /* Lighter shade of pink */
+}
+
+.shopping-button:hover {
+  background-color: #FFC08F; /* Lighter shade of orange */
+}
+
+.splitter-button:hover {
+  background-color: #9DE09D; /* Lighter shade of green */
+}
+
+.creatures-button:hover {
+  background-color: #95CAEC; /* Lighter shade of blue */
+}
+
+.videos-button:hover {
+  background-color: #BAA7FF; /* Lighter shade of purple */
 }
 
 .button p {
@@ -98,10 +146,6 @@
   transform: translate(-50%, -50%);
   width: 100%;
   text-align: center;
-}
-
-.button:hover {
-  background-color: #FFC663;
 }
 
 .button img {

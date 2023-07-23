@@ -10,8 +10,8 @@ describe('Savings Page', () => {
     it('show error message when saving a blank goal', () => {
         const newGoal = '';
       
-        cy.get('.right-container') // Assuming the container has the class 'right-container'
-          .should('be.visible') // Ensure the container is visible
+        cy.get('.right-container') 
+          .should('be.visible') 
           .within(() => {
             cy.contains('Add Goal')
               .click();
@@ -23,7 +23,7 @@ describe('Savings Page', () => {
               .click();
       
             cy.get('.goal-form p')
-              .should('have.text', 'Enter your target savings amount:Please enter a savings amount.') // Verify the error message is shown
+              .should('have.text', 'Enter your target savings amount:Please enter a valid savings amount.') 
 
           });
       });
@@ -32,21 +32,21 @@ describe('Savings Page', () => {
         const newGoal = '50';
       
         cy.get('.right-container')
-          .should('be.visible') // Ensure the container is visible
+          .should('be.visible') 
           .within(() => {
             cy.contains('Add Goal')
               .click();
       
             cy.get('.goal-form input')
               .should('be.visible')
-              .clear() // Clear the input field before typing the new goal
+              .clear() 
               .type(newGoal);
       
             cy.contains('Save Goal')
               .click();
       
             cy.get('.goal-form p')
-              .should('not.exist'); // Verify that the error message is not rendered
+              .should('not.exist'); 
       
             cy.get('.saving-goal h2')
               .should('contain', `Savings Goal: €${newGoal}`); // Verify that the Savings Goal is updated to '5'
@@ -243,4 +243,176 @@ describe('Savings Page', () => {
         // Verify the amount left to save is displayed
         cy.get('.transaction-list .amount-left-to-save').should('contain', amountLeftToSave.toFixed(2));
       });
+
+      it('show error message when saving a negative goal amount', () => {
+        const newGoal = '-50'; // Negative goal amount
+
+        cy.get('.right-container').should('be.visible').within(() => {
+          cy.contains('Add Goal').click();
+          cy.get('.goal-form input').should('be.visible').clear().type(newGoal);
+          cy.contains('Save Goal').click();
+          cy.get('.goal-form p').should('have.text', 'Enter your target savings amount:Please enter a valid savings amount.');
+        });
+      });
+
+      it('does not allow saving a zero savings goal', () => {
+        const newGoal = '0'; // Zero savings goal
+
+        cy.get('.right-container').should('be.visible').within(() => {
+          cy.contains('Add Goal').click();
+          cy.get('.goal-form input').should('be.visible').clear().type(newGoal);
+          cy.contains('Save Goal').click();
+          cy.get('.goal-form p').should('have.text', 'Enter your target savings amount:Please enter a valid savings amount.');
+        });
+      });
+
+      it('allow entering and submitting multiple pocket money transactions', () => {
+        const pocketMoneyAmounts = ['10.00', '5.50', '2.75'];
+        const transactionDescription = 'Pocket money';
+        const transactionDate = '2023-01-01';
+      
+        cy.get('.left-container').should('be.visible').within(() => {
+          pocketMoneyAmounts.forEach((amount, index) => {
+            cy.get('.pocket-money input[type="number"]').clear().type(amount);
+            cy.get('.input-description input[type="text"]').type(transactionDescription);
+            cy.get('.input-date input[type="date"]').clear().type(transactionDate);
+            cy.contains('Add').click();
+          });
+        });
+      
+        cy.get('.right-container').should('be.visible').within(() => {
+          cy.get('.transaction-list li').should('have.length', pocketMoneyAmounts.length);
+          pocketMoneyAmounts.forEach((amount, index) => {
+            cy.get('.transaction-date').eq(index).should('contain', transactionDate);
+            cy.get('.transaction-amount').eq(index).should('contain', amount);
+            cy.get('.transaction-description').eq(index).should('contain', transactionDescription);
+          });
+        });
+      });
+      
+
+      it('allow entering and submitting multiple spending transactions', () => {
+        const spendingAmount = ['3.50', '2.25', '1.00'];
+        const spendingDescription = ['Coffee', 'Snack', 'Bus'];
+        const spendingDate = ['2023-01-02', '2023-01-03', '2023-01-04'];
+      
+        cy.get('.left-container').should('be.visible').within(() => {
+          spendingAmount.forEach((amount, index) => {
+            cy.get('.spending-money input[type="number"]').clear().type(amount);
+            cy.get('.spending-description input[type="text"]').type(spendingDescription[index]);
+            cy.get('.spending-date input[type="date"]').clear().type(spendingDate[index]);
+            cy.get('.spend-button').click();
+          });
+        });
+      
+        cy.get('.right-container').should('be.visible').within(() => {
+          cy.get('.transaction-list li').should('have.length', spendingAmount.length);
+          spendingAmount.forEach((amount, index) => {
+            cy.get('.transaction-date').eq(index).should('contain', spendingDate[index]);
+            cy.get('.transaction-amount').eq(index).should('contain', amount);
+            cy.get('.transaction-description').eq(index).should('contain', spendingDescription[index]);
+          });
+        });
+      });
+      
+
+      it('show the correct total saved amount after multiple transactions', () => {
+        const pocketMoneyTransactions = ['10.00', '5.50', '2.75'];
+        const spendingTransactions = ['3.50', '2.25', '1.00'];
+        const totalSaved = pocketMoneyTransactions.reduce((total, amount) => total + parseFloat(amount), 0) -
+          spendingTransactions.reduce((total, amount) => total + parseFloat(amount), 0);
+
+        cy.get('.left-container').should('be.visible').within(() => {
+          pocketMoneyTransactions.forEach((amount) => {
+            cy.get('.pocket-money input[type="number"]').clear().type(amount);
+            cy.contains('Add').click();
+          });
+
+          spendingTransactions.forEach((amount) => {
+            cy.get('.spending-money input[type="number"]').clear().type(amount);
+            cy.get('.spend-button').click();
+          });
+        });
+
+        cy.get('.right-container').should('be.visible').within(() => {
+          cy.get('.transaction-list .total-saved').should('contain', totalSaved.toFixed(2));
+        });
+      });
+/*
+      it('allow entering and submitting multiple savings and spending transactions', () => {
+        const savingsTransactions = [
+          { amount: '10.00', description: 'Received pocket money', date: '2023-01-01' },
+          { amount: '5.50', description: 'Received pocket money', date: '2023-01-01' },
+          { amount: '2.75', description: 'Received pocket money', date: '2023-01-01' },
+        ];
+      
+        const spendingTransactions = [
+          { amount: '3.50', description: 'Coffee', date: '2023-01-02' },
+          { amount: '2.25', description: 'Snack', date: '2023-01-03' },
+          { amount: '1.00', description: 'Bus fare', date: '2023-01-04' },
+        ];
+      
+        // Entering and submitting multiple savings transactions
+        cy.get('.left-container').should('be.visible').within(() => {
+          savingsTransactions.forEach((transaction) => {
+            cy.get('.pocket-money input[type="number"]').clear().type(transaction.amount);
+            cy.get('.input-description input[type="text"]').clear().type(transaction.description);
+            cy.get('.input-date input[type="date"]').clear().type(transaction.date);
+            cy.contains('Add').click();
+          });
+        });
+      
+        // Validating savings transactions in the right container
+        cy.get('.right-container').should('be.visible').within(() => {
+          cy.get('.transaction-list').should('have.length', savingsTransactions.length);
+          savingsTransactions.forEach((transaction, index) => {
+            cy.get('.transaction-date').eq(index).should('contain', transaction.date);
+            cy.get('.transaction-amount').eq(index).should('contain', transaction.amount);
+            cy.get('.transaction-description').eq(index).should('contain', transaction.description);
+          });
+      
+          // Validating the total saved amount
+          const totalSaved = savingsTransactions.reduce((acc, curr) => acc + parseFloat(curr.amount), 0);
+          cy.get('.transaction-list .total-saved').should('contain', totalSaved.toFixed(2));
+      
+          // Validating the amount left to save
+          const goal = '100.00';
+          const amountLeftToSave = parseFloat(goal) - totalSaved;
+          cy.get('.transaction-list .amount-left-to-save').should('contain', amountLeftToSave.toFixed(2));
+        });
+      
+        // Entering and submitting multiple spending transactions
+        cy.get('.left-container').should('be.visible').within(() => {
+          spendingTransactions.forEach((transaction) => {
+            cy.get('.spending-money input[type="number"]').clear().type(transaction.amount);
+            cy.get('.spending-description input[type="text"]').clear().type(transaction.description);
+            cy.get('.spending-date input[type="date"]').clear().type(transaction.date);
+            cy.get('.spend-button').click();
+          });
+        });
+      
+        // Validating spending transactions in the right container
+        cy.get('.right-container').should('be.visible').within(() => {
+          cy.get('.transaction-list').should('have.length', savingsTransactions.length + spendingTransactions.length);
+      
+          spendingTransactions.forEach((transaction, index) => {
+            const transactionIndex = savingsTransactions.length + index;
+            cy.get('.transaction-date').eq(transactionIndex).should('contain', transaction.date);
+            cy.get('.transaction-amount').eq(transactionIndex).should('contain', `-€{transaction.amount}`);
+            cy.get('.transaction-description').eq(transactionIndex).should('contain', transaction.description);
+          });
+      
+          // Validating the total saved amount (including spending)
+          const totalSpending = spendingTransactions.reduce((acc, curr) => acc + parseFloat(curr.amount), 0);
+          const totalSavedIncludingSpending = parseFloat(totalSaved) - totalSpending;
+          cy.get('.transaction-list .total-saved').should('contain', totalSavedIncludingSpending.toFixed(2));
+      
+          // Validating the amount left to save (including spending)
+          const goal = '100.00';
+          const amountLeftToSaveIncludingSpending = parseFloat(goal) - totalSavedIncludingSpending;
+          cy.get('.transaction-list .amount-left-to-save').should('contain', amountLeftToSaveIncludingSpending.toFixed(2));
+        });
+      });*/
+      
+      
   });

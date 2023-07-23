@@ -23,3 +23,12 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+Cypress.Commands.add('visitAndGoBack', (url) => {
+    // Visit the given URL
+    cy.visit(url);
+  
+    // Test the navigation from the current page
+    cy.get('.logo').click(); // Click on the logo to go back to the homepage
+    cy.url().should('eq', 'http://localhost:3001/'); // Expecting the URL to be the homepage
+  });

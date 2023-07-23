@@ -4,10 +4,12 @@ const SavingsGoal = ({ goal, editingGoal, newGoal, handleGoalChange, handleGoalA
   const [error, setError] = useState(false); // State variable for tracking the error
 
   const handleSaveGoal = () => {
-    if (!newGoal) {
-      setError(true); // Set the error state if the input field is blank
+    if (newGoal.trim() === '') {
+      setError(true); // Set the error state if the newGoal is blank (empty input field)
+    } else if (parseFloat(newGoal) <= 0) {
+      setError(true); // Set the error state if the newGoal is negative or zero
     } else {
-      setError(false); // Reset the error state if the input field is not blank
+      setError(false); // Reset the error state if the newGoal is valid
       handleGoalAction();
     }
   };
@@ -24,7 +26,7 @@ const SavingsGoal = ({ goal, editingGoal, newGoal, handleGoalChange, handleGoalA
               Enter your target savings amount:
             </p>
             <input type="number" value={newGoal} onChange={handleGoalChange} style={{ display: 'inline-block' }} />
-            {error && <p style={{ color: 'red' }}>Please enter a savings amount.</p>} {/* Render the error message */}
+            {error && <p style={{ color: 'red' }}>Please enter a valid savings amount.</p>} {/* Render the error message */}
             <button onClick={handleSaveGoal}>Save Goal</button>
           </div>
         </label>
