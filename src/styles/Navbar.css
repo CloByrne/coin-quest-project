@@ -17,7 +17,7 @@
 .nav-link {
   background-color: #00a2ff;
   padding: 10px;
-  border-radius: 50%;
+  border-radius: 0%;
   display: flex;
   align-items: center; /* Align items horizontally */
   justify-content: center; /* Center content horizontally */
@@ -27,6 +27,15 @@
   text-decoration: none;
   transition: background-color 0.3s;
   margin: 0 5px; /* margin between buttons */
+  border: 3px solid; /* Remove the double border */
+  border-image: conic-gradient(
+      from 0deg,
+      #ff5e7d,
+      #ffcb00,
+      #32de7b,
+      #00a2ff,
+      #ff5e7d
+    ) 1; 
 }
 
 .nav-link:hover {

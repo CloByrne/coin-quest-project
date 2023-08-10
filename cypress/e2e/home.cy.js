@@ -37,7 +37,7 @@ describe('Home Page', () => {
 
     // Test to verify the "Search the Robot database" button is displayed
     it('display the "Search the Robot database" button', () => {
-      cy.contains('Search the Robot database').should('be.visible');
+      cy.contains('Search the Robot Database').should('be.visible');
     });
   
     // Button Navigation Tests
@@ -68,7 +68,7 @@ describe('Home Page', () => {
 
     // Test to verify navigation to the Robots Database when "Search the Robot database" button is clicked
     it('navigate to the Robots Database when "Search the Robot database" button is clicked', () => {
-      cy.contains('Search the Robot database').click();
+      cy.contains('Search the Robot Database').click();
       cy.url().should('match', /\/robot$/i);
     });
   

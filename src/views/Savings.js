@@ -116,12 +116,18 @@ const Savings = () => {
 
   return (
     <div className="main-container">
+      <div className="savings-container">
       <h1>My Savings</h1>
       {/*{isLoggedIn ? (
         <p className="save-note">You are logged in. Your work is automatically retrieved.</p>
       ) : (
         <p className="save-note">Please log in to save or retrieve your work.</p>
       )}*/}
+      <div className="savings-sub-text">
+          <p><strong>Column 1: </strong>Enter in the pocket money that you have received and the money you have spent. </p>
+          <p><strong>Column 2: </strong>Enter your savings goal and view the transaction list to see how much you have left to save. </p>
+        </div>
+        </div>
       <div className="container">
         <div className="left-container">
           <SavingsForm

@@ -93,7 +93,8 @@
       #00a2ff,
       #ff5e7d
     ) 1; 
-  border-radius: 50%;
+  border-radius: 0;
+  padding:6px;
 }
 
 .savings-button {

@@ -70,6 +70,19 @@ const Store = () => {
 
         <div className="right-container">
         <div class="container-with-h2">
+          <h2>Budget</h2>
+          </div>
+          <p>Enter how much money you have to spend</p>
+          <div className="budget-container">
+            <input
+              type="number"
+              value={budget}
+              onChange={handleBudgetChange}
+              placeholder="Enter your budget"
+            />
+          </div>
+          
+        <div class="container-with-h2">
           <h2>Shopping Cart</h2>
           </div>
           <ul>
@@ -85,18 +98,7 @@ const Store = () => {
             ))}
           </ul>
           <p>Total Cost: €{calculateTotalCost()}</p>
-          <div class="container-with-h2">
-          <h2>Budget</h2>
-          </div>
-          <p>Enter how much money you have to spend</p>
-          <div className="budget-container">
-            <input
-              type="number"
-              value={budget}
-              onChange={handleBudgetChange}
-              placeholder="Enter your budget"
-            />
-          </div>
+          
           <div class="container-with-h2">
           <h2>Can You Afford Your Shopping?</h2>
           </div>

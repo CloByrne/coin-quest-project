@@ -113,7 +113,7 @@ const CreaturesSearch = () => {
                       {sortColumn === 'id' && <i className={`fas fa-caret-${sortOrder === 'asc' ? 'up' : 'down'}`} />}
                     </div>
                   </th>
-                  <th>Robot</th>
+                  <th>Robot</th> {/*"Robots lovingly delivered by Robohash.org*/}
                   <th onClick={() => handleSort('name')} className={sortColumn === 'name' ? `th-sort-${sortOrder}` : ''}>
                   <div className="header-container">
                     <span>Name</span>

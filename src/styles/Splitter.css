@@ -78,3 +78,19 @@
     }
   }
   
+  .split-sub-text {
+    display: inline-block;
+    text-align: center; 
+    background-color: #fff4d6;
+    border-radius: 8px;
+    padding-bottom: 0px;
+    margin: 16px;
+    margin-left: 0; 
+    margin-right: 0;
+    width: 100%;;
+  }
+  
+  .split-container {
+    width: 100%;
+    text-align: center; 
+  }
